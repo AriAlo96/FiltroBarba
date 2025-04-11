@@ -11,6 +11,7 @@
     "@mediapipe/drawing_utils": "^0.3.1675466124",
     "@mediapipe/face_mesh": "^0.4.1657299874",
     "core-js": "^3.8.3",
+    "postprocessing": "^6.37.2",
     "three": "^0.175.0",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
