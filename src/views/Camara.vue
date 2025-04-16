@@ -17,11 +17,21 @@
     ></div>
     <video ref="video" autoplay playsinline muted style="display: none"></video>
     <transition name="fade">
-  <div v-if="!faceDetected" class="overlay-message">
-    <img src="@/assets/Gillette-Logo.png" alt="Gillette Logo" class="logo" />
-    <p class="instruction">Sentate frente al espejo para probar el filtro</p>
-  </div>
-</transition>
+      <div v-if="!faceDetected" class="overlay-full-image">
+        <div class="contenedorTextos">
+          <h2 class="titulo">
+            <span class="bold">ACERCATE</span> AL ESPEJO Y<br />
+            VIVÍ LA <span class="bold">EXPERIENCIA</span>
+          </h2>
+          <img
+            class="logoGillete"
+            src="@/assets/logoGilletteBlanco.png"
+            alt=""
+          />
+        </div>
+        <img class="almoby" src="@/assets/Developed by.png" alt="" />
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -156,10 +166,10 @@ export default {
         results.multiFaceLandmarks.length === 0 ||
         !this.beardMesh
       ) {
-  this.faceDetected = false;
-  if (this.beardMesh) this.beardMesh.visible = false; // 👈 oculta la barba
-  return;
-}
+        this.faceDetected = false;
+        if (this.beardMesh) this.beardMesh.visible = false; // 👈 oculta la barba
+        return;
+      }
 
       const landmarks = results.multiFaceLandmarks[0];
       const chin = landmarks[152];
@@ -249,34 +259,58 @@ body {
   height: 100%;
 }
 
-.overlay-message {
+.overlay-full-image {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 10;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  background: rgba(0, 0, 0, 0.4);
-  padding: 30px;
-  border-radius: 12px;
+  background-color: #1b244e;
+}
+
+.contenedorTextos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5vw;
+  height: 90vh;
+}
+
+.titulo {
   color: white;
-  font-family: 'Segoe UI', sans-serif;
-  animation: fadeIn 0.5s ease-in-out;
+  font-weight: 400;
+  font-size: 6vw;
+  margin-bottom: 1.5rem;
+  line-height: 100%;
 }
 
-.overlay-message .logo {
-  max-width: 200px;
-  margin-bottom: 20px;
+.bold {
+  font-weight: 900;
 }
 
-.overlay-message .instruction {
-  font-size: 1.5rem;
-  font-weight: bold;
+.logoGillete {
+  width: 70vw;
+}
+
+.almoby {
+  width: 40vw;
+  height: 10vh;
+  object-fit: contain;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0 }
-  to { opacity: 1 }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .fade-enter-active,
@@ -289,6 +323,6 @@ body {
 }
 
 .instruction {
-  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 </style>
